@@ -1,0 +1,33 @@
+name: Github Action Test
+
+env:
+  author: Suresh
+  name: Github Action Test
+  deployKey: 
+
+on:
+  push:
+    branches: 
+      - master
+      - release/*
+    paths: 
+      - /*
+  pull_request:
+     branches: 
+       - master
+  schedule:
+       - cron: "0 0 * * *"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
