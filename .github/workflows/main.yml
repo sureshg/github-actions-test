@@ -40,7 +40,7 @@ jobs:
         
     steps:
       - name: Checking out the source code    
-        id: Code Checkout
+        id: code-checkout
         timeout-minutes: 2
         uses: actions/checkout@v1
         if: contains(matrix.os, "latest")
