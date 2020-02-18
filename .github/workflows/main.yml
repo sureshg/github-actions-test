@@ -43,7 +43,7 @@ jobs:
         id: Code Checkout
         timeout-minutes: 2
         uses: actions/checkout@v1
-        if: contains(${{ matrix.os }}, "latest")
+        if: contains(matrix.os, "latest")
         env:
           name: checkout  
 
