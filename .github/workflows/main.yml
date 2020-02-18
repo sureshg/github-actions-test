@@ -20,7 +20,7 @@ jobs:
   build:
     name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.version }} ${{ matrix.bin-name }} - "${author}".
     runs-on: ${{ matrix.os }}
-    if: contains(${{ matrix.os }}, "latest")
+    if: contains(matrix.os, "latest")
     env:
       version ${{ matrix.version }}
     timeout-minutes: 10
@@ -39,25 +39,30 @@ jobs:
             bin-name: hello-win.exe  
         
     steps:
-    - name: Checking out the source code    
-      id: Code Checkout
-      timeout-minutes: 2
-      uses: actions/checkout@v1
-      if: contains(${{ matrix.os }}, "latest")
-      env:
-        name: checkout  
-      
-    - name: Setting up Dart
-      id: dart-setup
-      continue-on-error: false
-      uses: DanTup/gh-actions/setup-dart@master
-       
-    - name: Run a one-line script
-      run: echo Hello, world!
-      
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build "${author}" ,
-        echo test, and deploy your project.
-        mkdir build
-        dart2native dart2native --help
+      - name: Checking out the source code    
+        id: Code Checkout
+        timeout-minutes: 2
+        uses: actions/checkout@v1
+        if: contains(${{ matrix.os }}, "latest")
+        env:
+          name: checkout  
+
+      - name: Setting up Dart
+        id: dart-setup
+        continue-on-error: false
+        uses: DanTup/gh-actions/setup-dart@master
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build "${author}" ,
+          echo test, and deploy your project.
+          mkdir build
+          dart2native dart2native --help
+          
+      - name: Step failed
+        if: failure()
+        run: |
+          echo This previous step failed "${author}" ,
