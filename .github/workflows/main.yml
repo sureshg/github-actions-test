@@ -20,7 +20,7 @@ jobs:
   build:
     name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.version }} ${{ matrix.bin-name }} - "${author}".
     runs-on: ${{ matrix.os }}
-    if: contains(matrix.os, "latest")
+    if: contains(matrix.os, 'latest')
     env:
       version ${{ matrix.version }}
     timeout-minutes: 10
@@ -43,7 +43,7 @@ jobs:
         id: code-checkout
         timeout-minutes: 2
         uses: actions/checkout@v1
-        if: contains(matrix.os, "latest")
+        if: contains(matrix.os, 'latest')
         env:
           name: checkout  
 
