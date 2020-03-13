@@ -49,6 +49,7 @@ jobs:
       - name: Backing up/Restore the Gradle cache
         uses: actions/cache@v1
         id: gradle-cache
+        continue-on-error: true
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-ga-test-${{ hashFiles('**/*.gradle') }}
@@ -58,6 +59,7 @@ jobs:
       - name: Backing up/Restore the Gradle wrapper
         uses: actions/cache@v1
         id: gradle-wrapper
+        continue-on-error: true
         with:
           path: ~/.gradle/wrapper
           key: ${{ runner.os }}-ga-test-${{ hashFiles('**/*.gradle') }}
