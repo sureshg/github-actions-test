@@ -18,11 +18,11 @@ on:
 
 jobs:
   build:
-    name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.version }} ${{ matrix.bin-name }} - "${author}".
+    name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.java }} ${{ matrix.bin-name }} - "${author}".
     runs-on: ${{ matrix.os }}
-    env:
-      version ${{ matrix.version }}
     timeout-minutes: 10
+    env:
+      jdk-version: ${{ matrix.java }}
     strategy:
       fail-fast: true
       matrix:
