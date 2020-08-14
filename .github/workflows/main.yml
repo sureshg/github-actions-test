@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.java }} ${{ matrix.bin-name }} - "${{ env.author }}".
+    name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.java }} ${{ matrix.bin-name }} - '${{ matrix.author }}'.
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     env:
@@ -28,6 +28,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         java: ['8', '11', '13']
+        author: 
+         - ${{ env.author }}
         include:
           # includes a new variable of os specific binary name for the matrix leg matching the os and version
           - os: ubuntu-latest
