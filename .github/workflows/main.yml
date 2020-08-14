@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.java }} ${{ matrix.bin-name }} - '$GITHUB_ACTOR'.
+    name: Build job running on ${{ matrix.os }} for JDK ${{ matrix.java }} ${{ matrix.bin-name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     env:
