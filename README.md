@@ -4,5 +4,5 @@
 
 Sample repo to test the Github actions.
 
-[gha_url]: https://github.com/sureshg/github-actions-test/actions                       
+[gha_url]: https://github.com/sureshg/github-actions-test/actions/workflows/main.yml                     
 [shieldio_img]: https://img.shields.io/github/workflow/status/sureshg/github-actions-test/Github%20Action%20Test?color=green&label=Build&logo=Github-Actions&logoColor=green&style=for-the-badge
