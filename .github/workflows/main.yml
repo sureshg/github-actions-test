@@ -112,3 +112,20 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"     
+
+  container:
+      name: OpenJDK docker image
+      runs-on: ubuntu-latest
+
+      container:
+       image: openjdk:17-jdk-alpine
+       
+      steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v2.3.4
+          
+        - name: Run java app
+          run: |
+            java --show-version Main.java
+            
+        
