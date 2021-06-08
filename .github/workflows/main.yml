@@ -114,7 +114,7 @@ jobs:
         run: echo "$MATRIX_CONTEXT"     
 
   container-build:
-    name: Java Container App
+    name: Run Java app on OpenJDK
     runs-on: ubuntu-latest
 
     strategy:
@@ -133,7 +133,7 @@ jobs:
       - name: Run Java App on OpenJDK ${{ matrix.jdk }} container image
         if: always()
         run: |
-          java --show-version src/main/java/JavaApp.java
+          java --show-version Main.java
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
 
@@ -146,5 +146,3 @@ jobs:
           JOB_CONTEXT: ${{ toJson(job) }}
           STEPS_CONTEXT: ${{ toJson(steps) }}
           RUNNER_CONTEXT: ${{ toJson(runner) }}
-            
-        
