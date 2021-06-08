@@ -113,19 +113,38 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"     
 
-  container:
-      name: OpenJDK docker image
-      runs-on: ubuntu-latest
+  container-build:
+    name: Java Container App
+    runs-on: ubuntu-latest
 
-      container:
-       image: openjdk:17-jdk-alpine
-       
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v2.3.4
-          
-        - name: Run java app
-          run: |
-            java --show-version Main.java
+    strategy:
+      fail-fast: true
+      matrix:
+        jdk: [ "17" ]
+
+    container:
+      # openjdk:17-jdk-alpine
+      image: openjdk:${{ matrix.jdk }}-slim-buster
+
+    steps:
+      - name: Check out the source code
+        uses: actions/checkout@v2
+
+      - name: Run Java App on OpenJDK ${{ matrix.jdk }} container image
+        if: always()
+        run: |
+          java --show-version src/main/java/JavaApp.java
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+
+      - name: Github Action Contexts
+        run: |
+          echo "$JOB_CONTEXT"
+          echo "$STEPS_CONTEXT"
+          echo "$RUNNER_CONTEXT"
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
             
         
