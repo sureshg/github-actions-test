@@ -136,6 +136,7 @@ jobs:
           java --show-version Main.java
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
+        shell: sh  
 
       - name: Github Action Contexts
         run: |
