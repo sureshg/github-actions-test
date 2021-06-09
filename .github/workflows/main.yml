@@ -133,7 +133,7 @@ jobs:
       - name: Run Java App on OpenJDK ${{ matrix.jdk }} container image
         if: always()
         run: |
-          java --show-version src/main/java/JavaApp.java
+          java --show-version Main.java
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
 
