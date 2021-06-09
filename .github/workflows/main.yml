@@ -114,17 +114,17 @@ jobs:
         run: echo "$MATRIX_CONTEXT"     
 
   container-build:
-    name: Run Java app on OpenJDK
+    name: Run Java on Container
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: true
       matrix:
-        jdk: [ "17" ]
+        jdk: [ "17-slim-buster", "17-alpine" ]
 
     container:
       # openjdk:17-jdk-alpine
-      image: openjdk:${{ matrix.jdk }}-slim-buster
+      image: openjdk:${{ matrix.jdk }}
 
     steps:
       - name: Check out the source code
@@ -133,7 +133,7 @@ jobs:
       - name: Run Java App on OpenJDK ${{ matrix.jdk }} container image
         if: always()
         run: |
-          java --show-version Main.java
+          java --show-version src/main/java/JavaApp.java
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
 
