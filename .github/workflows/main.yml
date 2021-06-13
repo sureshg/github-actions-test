@@ -27,7 +27,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        java: ['11', '16']
+        java: ['16']
         include:
           # includes a new variable of os specific binary name for the matrix leg matching the os and version
           - os: ubuntu-latest
