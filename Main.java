@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.HexFormat;
 import java.util.Locale;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
@@ -65,8 +64,7 @@ public class Main {
     var props = System.getProperties();
     props.forEach((k, v) -> out.println(k + " : " + v));
 
-    var lineSepHex = HexFormat.of().formatHex(lineSep.getBytes(StandardCharsets.UTF_8));
-    out.printf("%n✧✧✧✧✧ LineSeparator = 0x%s%n", lineSepHex);
+    out.printf("%n✧✧✧✧✧ LineSeparator = 0x%s%n", lineSep);
     out.printf("%n✧✧✧✧✧ File PathSeparator = %s%n", File.pathSeparator);
 
     var stats =
