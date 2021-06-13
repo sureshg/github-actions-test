@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    name: 🏗️ Build job running on ${{ matrix.os }} for JDK ${{ matrix.java }}
+    name: 🏗️ Java app on ${{ matrix.os }} for JDK ${{ matrix.java }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     env:
