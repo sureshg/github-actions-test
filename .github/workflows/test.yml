@@ -28,6 +28,6 @@ jobs:
       run: |
         echo "TEMP : $TEMP"
         echo "TMP  : $TMP"
-        ls -ltrh c:/
-        java -Xlog:gc*:c:\tmp\test-gc-%p.log --version
+        ls -ltrh c:/TEMP
+        java -Xlog:gc*:c:/TEMP/test-gc-%p.log --version
       shell: bash  
