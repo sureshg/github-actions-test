@@ -30,6 +30,6 @@ jobs:
         echo "TMP  : $TMP"
         ls -ltrh c:/TEMP
         java -XX:+PrintCommandLineFlags -Xlog:gc*:\"c:/TEMP/test-gc1-$$-%t.log\" --version
-        java -XX:+PrintCommandLineFlags -Xlog:gc*:\"c:/TEMP/test-gc2-%p-%t.log\" --version
+        java -XX:+PrintCommandLineFlags -Xlog:gc*:c\:/TEMP/test-gc2-%p-%t.log --version
         ls -ltrh c:/TEMP
-      # shell: bash  
+      shell: bash  
