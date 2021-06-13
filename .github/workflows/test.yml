@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  run-commands:
+  test:
   
     runs-on: ${{ matrix.os }}
     strategy:
@@ -29,5 +29,4 @@ jobs:
         echo "TEMP : $TEMP"
         echo "TMP  : $TMP"
         ls -ltrh /tmp
-        ls -ltrh c:\tmp
       shell: bash  
