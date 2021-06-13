@@ -29,4 +29,5 @@ jobs:
         echo "TEMP : $TEMP"
         echo "TMP  : $TMP"
         ls -ltrh /tmp
+        java -Xlog:gc*:/tmp/test-gc-%p.log --version
       shell: bash  
