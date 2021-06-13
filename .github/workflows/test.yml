@@ -29,5 +29,5 @@ jobs:
         echo "TEMP : $TEMP"
         echo "TMP  : $TMP"
         ls -ltrh c:/TEMP
-        java -Xlog:gc*:c:/TEMP/test-gc-%p.log --version
+        java -Xlog:gc*:c:/TEMP/test-gc-$$.log --version
       shell: bash  
