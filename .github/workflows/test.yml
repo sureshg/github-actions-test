@@ -32,7 +32,7 @@ jobs:
         # java -XX:+PrintCommandLineFlags -Xlog:gc*:\"c:/TEMP/test-gc1-$$-%t.log\" --version
         java -XX:+PrintCommandLineFlags \
             -XX:+UseZGC \
-            -Xlog:gc\*:\"c:/TEMP\"/app-gc-%p-%t.log:time,uptime,level,tid,tags:filecount=5,filesize=10m \
+            -Xlog:gc\*:\"c:/TEMP/app-gc-%p-%t.log\":time,uptime,level,tid,tags:filecount=5,filesize=10m \
             -XX:StartFlightRecording:filename=c:/TEMP/app.jfr,settings=default.jfc,name=app,maxsize=100m,dumponexit=true \
             -XX:FlightRecorderOptions:stackdepth=128 \
             -XX:+HeapDumpOnOutOfMemoryError \
