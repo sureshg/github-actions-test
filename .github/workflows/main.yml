@@ -10,6 +10,8 @@ on:
     branches: 
       - main
       - release/*
+    tags:
+      - '*'
   pull_request:
      branches: 
        - main
@@ -114,7 +116,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        jdk: [ "17-slim-buster", "17-alpine" ]
+        jdk: [ "18-slim-buster", "17-alpine" ]
 
     container:
       # openjdk:17-jdk-alpine
