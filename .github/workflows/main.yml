@@ -80,6 +80,7 @@ jobs:
           echo This previous step failed "${author}"
           
       - name: Push and commit a file.
+        if: runner.os == 'Linux'
         run: |
           date > generated.txt
           git config user.name github-actions
