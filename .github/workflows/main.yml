@@ -87,7 +87,7 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "generated"
-          git push
+          git push origin HEAD:${{ github.event.repository.default_branch }}
           
       - name: Dump GitHub context
         env:
