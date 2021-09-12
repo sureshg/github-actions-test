@@ -78,7 +78,8 @@ jobs:
           
       - name: Run Kotlin Script
         run: |
-           kotlin -e 'System.getProperty("kotlin.home")'
+          chmod +x script.main.kts
+          ./script.main.kts
         shell: bash     
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}  
