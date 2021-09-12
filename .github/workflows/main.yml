@@ -67,7 +67,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }} 
-          cache: 'gradle'
+          # cache: 'gradle'
         
       - name: Run Java app
         run: |
@@ -131,7 +131,6 @@ jobs:
         jdk: [ "18-buster", "18-alpine" ]
 
     container:
-      # openjdk:17-jdk-alpine
       image: openjdk:${{ matrix.jdk }}
 
     steps:
