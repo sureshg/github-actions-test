@@ -75,7 +75,14 @@ jobs:
         shell: bash     
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
-                
+          
+      - name: Run Kotlin Script
+        run: |
+           kotlin -e 'System.getProperty("kotlin.home")'
+        shell: bash     
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}  
+          
       - name: Step failed
         if: failure()
         run: |
