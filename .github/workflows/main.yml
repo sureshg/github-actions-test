@@ -50,6 +50,7 @@ jobs:
   
       - name: Gradle cache
         uses: actions/cache@v2
+        if:  ${{ false }}
         id: gradle-cache
         continue-on-error: true
         with:
@@ -64,8 +65,9 @@ jobs:
         id: setup-jdk
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt' # See 'Supported distributions' for available options
-          java-version: ${{ matrix.java }}  
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }} 
+          cache: 'gradle'
         
       - name: Run Java app
         run: |
@@ -126,7 +128,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        jdk: [ "18-slim-buster", "17-alpine" ]
+        jdk: [ "18-buster", "18-alpine" ]
 
     container:
       # openjdk:17-jdk-alpine
