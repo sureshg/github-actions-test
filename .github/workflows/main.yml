@@ -78,6 +78,7 @@ jobs:
           
       - name: Run Kotlin Script
         run: |
+          find / -name 'kotlinx-serialization-compiler-plugin.jar'
           chmod +x script.main.kts
           ./script.main.kts
         shell: bash     
