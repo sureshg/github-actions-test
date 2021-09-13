@@ -78,10 +78,13 @@ jobs:
           
       - name: Run Kotlin Script
         run: |
-          kotlinc -e 'System.getProperty("java.class.path")'
-          realpath $(which kotlinc)
+          # kotlinc -e 'System.getProperty("java.class.path")'
+          # realpath $(which kotlinc)
           # chmod +x script.main.kts
           # ./script.main.kts
+          ls -ltrh /c/ProgramData/Chocolatey/lib/kotlinc/tools/kotlinc/lib/kotlinx-serialization-compiler-plugin.jar
+          ls -ltrh /usr/local/Cellar/kotlin/1.5.30/libexec/lib/kotlinx-serialization-compiler-plugin.jar
+          ls -ltrh /usr/share/kotlinc/lib/kotlinx-serialization-compiler-plugin.jar
         shell: bash     
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}  
