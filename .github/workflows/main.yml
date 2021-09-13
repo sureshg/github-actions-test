@@ -94,6 +94,7 @@ jobs:
             ;;
           esac
           echo $ktx_path
+          kotlinc -script -Xplugin=$ktx_path script.main.kts
         shell: bash     
 
       - name: Step failed
