@@ -75,29 +75,27 @@ jobs:
         shell: bash     
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
-          
-      - name: Run Kotlin Script on Linux
-        if: runner.os == 'Linux'
+
+      - name: Run Kotlin Script
         run: |
-          # kotlinc -e 'System.getProperty("java.class.path")'
-          # realpath $(which kotlinc)
-          # chmod +x script.main.kts
-          # ./script.main.kts
-          ls -ltrh /usr/share/kotlinc/lib/kotlinx-serialization-compiler-plugin.jar
-        shell: bash      
-     
-      - name: Run Kotlin Script on MacOS
-        if: runner.os == 'macos'
-        run: |
-          ls -ltrh /usr/local/Cellar/kotlin/1.5.30/libexec/lib/kotlinx-serialization-compiler-plugin.jar
+          jar="kotlinx-serialization-compiler-plugin.jar"
+          case "$OSTYPE" in
+          darwin*)
+            os=osx
+            ktx_path=$(find /usr/local/Cellar/kotlin -name $jar)
+            ;;
+          msys*)
+            os=windows
+            ktx_path=$(find /c/ProgramData/Chocolatey/lib/kotlinc -name $jar)
+            ;;
+          *)
+            os=linux
+            ktx_path=$(find /usr/share/kotlinc -name $jar)
+            ;;
+          esac
+          echo $ktx_path
         shell: bash     
-        
-      - name: Run Kotlin Script on Windows
-        if: runner.os == 'windows'
-        run: |
-          ls -ltrh /c/ProgramData/Chocolatey/lib/kotlinc/tools/kotlinc/lib/kotlinx-serialization-compiler-plugin.jar
-        shell: bash     
-          
+
       - name: Step failed
         if: failure()
         run: |
