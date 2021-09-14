@@ -77,25 +77,9 @@ jobs:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
 
       - name: Run Kotlin Script
-        run: |
-          jar="kotlinx-serialization-compiler-plugin.jar"
-          case "$OSTYPE" in
-          darwin*)
-            os=osx
-            ktx_path=$(find /usr/local/Cellar/kotlin -name $jar)
-            ;;
-          msys*)
-            os=windows
-            ktx_path=$(find /c/ProgramData/Chocolatey/lib/kotlinc -name $jar)
-            ;;
-          *)
-            os=linux
-            ktx_path=$(find /usr/share/kotlinc -name $jar)
-            ;;
-          esac
-          echo $ktx_path
-          kotlinc -script -Xplugin=$ktx_path script.main.kts
-        shell: bash     
+        uses: sureshg/kts-exec@v2
+        with:
+          script: "script.main.kts"
 
       - name: Step failed
         if: failure()
