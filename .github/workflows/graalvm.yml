@@ -9,7 +9,8 @@ on:
   workflow_dispatch:
         
 jobs:
-  test:
+
+  native-build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -26,13 +27,13 @@ jobs:
           graalvm-version: 21.2.0
           java-version: 11
           
-      - name: Print Java version
+      - name: Java version
         run: java --version
         
       - name: GraalVM Native Image Version
         run: native-image --version
         
-      - name: Print cl.exe version
+      - name: Microsoft C/C++ Compiler Version
         if: runner.os == 'Windows'
         run: cl.exe
 
