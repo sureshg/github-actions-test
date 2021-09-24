@@ -17,7 +17,10 @@ on:
        - main
   schedule:
        - cron: "0 0 * * *"
-
+       
+  workflow_dispatch:
+   
+            
 jobs:
   build:
     name: 🏗️ Java app on ${{ matrix.os }} for JDK ${{ matrix.java }}
