@@ -24,21 +24,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Run Commands
+    - name: Check annotations
       run: |
-        echo "TEMP : $TEMP"
-        echo "TMP  : $TMP"
-        # ls -ltrh c:/TEMP
-        # java -XX:+PrintCommandLineFlags -Xlog:gc*:\"c:/TEMP/test-gc1-$$-%t.log\" --version
-        java -XX:+PrintCommandLineFlags \
-            -XX:+UseZGC \
-            -Xlog:gc\*:\"/tmp/app-gc-%p-%t.log\":time,uptime,level,tid,tags:filecount=5,filesize=10m \
-            -XX:StartFlightRecording:filename=/tmp/app.jfr,settings=default.jfc,name=app,maxsize=100m,dumponexit=true \
-            -XX:FlightRecorderOptions:stackdepth=128 \
-            -XX:+HeapDumpOnOutOfMemoryError \
-            -XX:HeapDumpPath=/tmp/app-%p.hprof \
-            -XX:ErrorFile=/tmp/app_hs_err_pid-%p.log \
-            --version 
-        # ls -ltrh c:/TEMP
-        ls -ltrh /tmp
+          echo "::set-output name=gh-workflow-name::github-action-test"
+          echo "::debug::This is a debug message. Set ACTIONS_STEP_DEBUG secrets to true"
+          echo "::notice file=README.md,line=1,col=5,title=Test Notice::This is a notice message!"
       shell: bash  
