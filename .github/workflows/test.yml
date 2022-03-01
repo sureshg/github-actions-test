@@ -28,5 +28,5 @@ jobs:
       run: |
           echo "::set-output name=gh-workflow-name::github-action-test"
           echo "::debug::This is a debug message. Set ACTIONS_STEP_DEBUG secrets to true"
-          echo "::notice file=README.md,line=1,col=5,title=Test Notice::This is a notice message!"
+          echo "::notice title=Test Title::This is a notice message!"
       shell: bash  
