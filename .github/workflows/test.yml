@@ -30,5 +30,7 @@ jobs:
           echo "::debug::This is a debug message. Set ACTIONS_STEP_DEBUG secrets to true"
           echo "::notice title=Test Title::This is a notice message!"
           echo "::notice title=Env File::$GITHUB_ENV"
+          cat $GITHUB_ENV
           echo "::notice title=Path file::$GITHUB_PATH"
+          cat $GITHUB_PATH
       shell: bash  
