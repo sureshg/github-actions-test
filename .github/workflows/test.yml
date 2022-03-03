@@ -40,5 +40,7 @@ jobs:
           cat $GITHUB_PATH
           echo "::notice title=JSON_RESPONSE::$JSON_RESPONSE"
           echo "::notice title=Path file::$GITHUB_PATH"
-          
+          echo "---- ENV ----"
+          env
+          echo "-------------"
       shell: bash  
