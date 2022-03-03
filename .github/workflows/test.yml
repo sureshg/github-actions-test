@@ -28,11 +28,19 @@ jobs:
       run: |
           echo "::set-output name=gh-workflow-name::github-action-test"
           echo "::debug::This is a debug message. Set ACTIONS_STEP_DEBUG secrets to true"
+          
+          echo "action_state=yellow" >> $GITHUB_ENV
+          
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
           curl https://httpbin.org/json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          echo "::notice title=Env File::$GITHUB_ENV"
+          
+          echo "${{ env.action_state }}" # This will output 'yellow'
+          
+          echo "::notice title=JSON_RESPONSE::$JSON_RESPONSE"
+          
           cat $GITHUB_ENV
+          
           echo "::notice title=Path file::$GITHUB_PATH"
           cat $GITHUB_PATH
       shell: bash  
