@@ -28,7 +28,9 @@ jobs:
       run: |
           echo "::set-output name=gh-workflow-name::github-action-test"
           echo "::debug::This is a debug message. Set ACTIONS_STEP_DEBUG secrets to true"
-          echo "::notice title=Test Title::This is a notice message!"
+          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+          curl https://httpbin.org/json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
           echo "::notice title=Env File::$GITHUB_ENV"
           cat $GITHUB_ENV
           echo "::notice title=Path file::$GITHUB_PATH"
