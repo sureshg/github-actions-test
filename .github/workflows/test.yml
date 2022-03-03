@@ -30,8 +30,12 @@ jobs:
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
           curl https://httpbin.org/json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          echo "${{ env.action_state }}"
-          echo "${{ env.JSON_RESPONSE }}"
+          cat $GITHUB_ENV
+          cat $GITHUB_PATH          
+      shell: bash  
+      
+    - name: Read env
+      run: |
           cat $GITHUB_ENV
           cat $GITHUB_PATH
           echo "::notice title=JSON_RESPONSE::$JSON_RESPONSE"
