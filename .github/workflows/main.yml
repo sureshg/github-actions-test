@@ -137,7 +137,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        jdk: [ "18-buster", "18-alpine" ]
+        jdk: [ "19-slim", "19-alpine" ]
 
     container:
       image: openjdk:${{ matrix.jdk }}
