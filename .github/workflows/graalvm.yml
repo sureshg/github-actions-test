@@ -18,10 +18,18 @@ jobs:
         components: [ 'native-image' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
         include:
-          - version: 'dev'
+          - os: ubuntu-18.04
+            version: 'dev'
             java-version: '17'
             components: 'native-image'
-            os: macos-11
+          - os: macos-10.15
+            version: 'dev'
+            java-version: '17'
+            components: 'native-image'
+          - os: windows-2019
+            version: 'dev'
+            java-version: '17'
+            components: 'native-image'
 
     steps:
       - name: Check out repository
@@ -55,14 +63,14 @@ jobs:
 
       - name: Build and run App
         run: |
-          javac Main.java
+          javac -encoding UTF-8 Main.java
           native-image Main app
           ./app
 
       - name: Upload ${{ matrix.os }} app binary
         uses: actions/upload-artifact@v3
         with:
-          name: app-${{ runner.os }}
+          name: app-${{ matrix.os }}
           path: app*
           if-no-files-found: error
 
@@ -92,7 +100,7 @@ jobs:
       - name: Uploading ${{ matrix.os }} app static binary
         uses: actions/upload-artifact@v3
         with:
-          name: app-static-${{ runner.os }}
+          name: app-static-${{ matrix.os }}
           path: |
             app-static*
           if-no-files-found: error

@@ -16,6 +16,7 @@ reports
 hs_err_pid*
 classes.lst
 *.jsa
+*.class
 jre/
 
 # Graalvm
