@@ -18,5 +18,8 @@ classes.lst
 *.jsa
 jre/
 
+# Graalvm
+*.build_artifacts.txt
+
 # Gradle release
 cx.json

@@ -5,35 +5,60 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-    
   workflow_dispatch:
-        
-jobs:
 
+jobs:
   native-build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-        
-      - name: Set up GraalVM Native Image toolchain
-        id: graalvm-native-image-toolchain
-        uses: helpermethod/graalvm-native-image-toolchain@0.0.2
+
+      - uses: graalvm/setup-graalvm@v1
         with:
-          graalvm-version: 21.2.0
-          java-version: 16
-          
-      - name: Java version
-        run: java --version
-        
-      - name: GraalVM Native Image Version
-        run: native-image --version
-        
+          version: 'dev'
+          java-version: '17'
+          components: 'native-image'
+          native-image-musl: 'false'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GraalVM Versions
+        run: |
+          echo "GRAALVM_HOME: $GRAALVM_HOME"
+          echo "JAVA_HOME: $JAVA_HOME"
+          java --version
+          gu --version
+          native-image --version
+
       - name: Microsoft C/C++ Compiler Version
         if: runner.os == 'Windows'
         run: cl.exe
 
+      - name: Build and run App
+        run: |
+          javac Main.java
+          echo 'Building the native image...'
+          native-image Main app
+          echo 'Building the static image...'
+          native-image --static --libc=musl Main app-static
+          echo 'Running the native image...'
+          ./app
+
+      - name: Upload ${{ matrix.os }} app binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-${{ runner.os }}
+          path: app
+          if-no-files-found: error
+
+      - name: Uploading ${{ matrix.os }} app static binary
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-${{ runner.os }}-static.jar
+          path: |
+            app-static
+          if-no-files-found: error
