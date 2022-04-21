@@ -21,15 +21,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - uses: graalvm/setup-graalvm@v1
+      - name: Setup GraalVM CE Dev Build
+        uses: graalvm/setup-graalvm@v1
         with:
           version: 'dev'
           java-version: '17'
           components: 'native-image'
-          native-image-musl: 'true'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: GraalVM Versions
+      - name: Print GraalVM Versions
         run: |
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
@@ -43,25 +43,43 @@ jobs:
       - name: Build and run App
         run: |
           javac Main.java
-          echo 'Building the native image...'
           native-image Main app
-          echo 'Building the static image...'
-          native-image --static --libc=musl Main app-static
-          echo 'Running the native image...'
           ./app
 
       - name: Upload ${{ matrix.os }} app binary
         uses: actions/upload-artifact@v3
         with:
           name: app-${{ runner.os }}
-          path: app
+          path: app*
           if-no-files-found: error
 
+
+  native-build-musl:
+    name: native-image-musl on ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Setup GraalVM CE Dev Build
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: 'dev'
+          java-version: '17'
+          components: 'native-image'
+          native-image-musl: 'true'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build static app image with musl
+        run: |
+          javac Main.java
+          native-image --static --libc=musl Main app-static
+          ./app-static
+
       - name: Uploading ${{ matrix.os }} app static binary
-        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v3
         with:
-          name: app-${{ runner.os }}-static.jar
+          name: app-static-${{ runner.os }}
           path: |
-            app-static
+            app-static*
           if-no-files-found: error
