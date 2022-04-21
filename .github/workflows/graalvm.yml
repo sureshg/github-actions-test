@@ -78,7 +78,7 @@ jobs:
 
 
   native-build-musl:
-    name: native-image-musl on ubuntu-latest
+    name: GraalVM CE dev JDK17 + musl static image
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
