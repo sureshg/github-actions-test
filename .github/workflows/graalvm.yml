@@ -26,7 +26,7 @@ jobs:
           version: 'dev'
           java-version: '17'
           components: 'native-image'
-          native-image-musl: 'false'
+          native-image-musl: 'true'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: GraalVM Versions
