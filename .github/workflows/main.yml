@@ -79,11 +79,6 @@ jobs:
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
 
-      - name: Run Kotlin Script
-        uses: sureshg/kts-exec@v2.4
-        with:
-          script: "script.main.kts"
-
       - name: Step failed
         if: failure()
         run: |
