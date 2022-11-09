@@ -41,14 +41,14 @@ jobs:
             MY_TMP_PATH="$(dirname "$(mktemp -u)")/"
           fi
 
-          echo -e "\n\n"
-          echo -e "Temp Dir = ${MY_TMP_PATH}"
-          echo -e "\n\n"
-        
+          printf "\n"
+          echo "Temp Dir = ${MY_TMP_PATH}"
+          
+          printf "\n"
           echo "Temp directory contents are..."
           ls -ltrh ${MY_TMP_PATH}
-          echo -e "\n\n"
           
+          printf "\n"
           echo "Starting the java app..."
           java --enable-preview \
                --add-modules=jdk.incubator.concurrent,jdk.incubator.vector \
@@ -79,7 +79,7 @@ jobs:
                -ea \
                --version 
           
-          echo -e "\n\n"
+          printf "\n"
           echo "Temp directory contents are after java run..."
           ls -ltrh ${MY_TMP_PATH}
        
