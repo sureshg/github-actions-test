@@ -36,6 +36,11 @@ jobs:
           java --version
           MY_TMP_PATH=$(dirname $(mktemp -u))
           echo "Temp Dir = ${MY_TMP_PATH}"
+          
+          echo "Temp directory contents are..."
+          ls -ltrh ${MY_TMP_PATH}
+          
+          echo "Starting the java app..."
           java --enable-preview \
                --add-modules=jdk.incubator.concurrent,jdk.incubator.vector \
                --enable-native-access=ALL-UNNAMED \
@@ -65,5 +70,5 @@ jobs:
                -ea \
                --version 
           
-          ls -ltrh ${MY_TMP_PATH}
+          ls -ltrh ${MY_TMP_PATH}/openjdk-playground*
        
