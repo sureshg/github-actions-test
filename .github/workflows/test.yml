@@ -41,10 +41,13 @@ jobs:
             MY_TMP_PATH="$(dirname "$(mktemp -u)")/"
           fi
 
-          echo "Temp Dir = ${MY_TMP_PATH}"
+          echo -e "\n\n"
+          echo -e "Temp Dir = ${MY_TMP_PATH}"
+          echo -e "\n\n"
         
           echo "Temp directory contents are..."
           ls -ltrh ${MY_TMP_PATH}
+          echo -e "\n\n"
           
           echo "Starting the java app..."
           java --enable-preview \
@@ -76,6 +79,7 @@ jobs:
                -ea \
                --version 
           
+          echo -e "\n\n"
           echo "Temp directory contents are after java run..."
           ls -ltrh ${MY_TMP_PATH}
        
