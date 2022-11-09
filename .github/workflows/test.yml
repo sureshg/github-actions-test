@@ -31,13 +31,13 @@ jobs:
           release: ${{ matrix.java }}
           install: true
 
-      - name: Java options check
+      - name: Java options check ${{ env.OSTYPE }}
         run: |
           java --version
           MY_TMP_PATH=$(dirname $(mktemp -u))
           echo "Temp Dir = ${MY_TMP_PATH}"
           
-          echo "gc log test" > ${MY_TMP_PATH}/openjdk-playground-gc.txt
+          echo "OS is: ${OSTYPE}"
           
           echo "Temp directory contents are..."
           ls -ltrh ${MY_TMP_PATH}
