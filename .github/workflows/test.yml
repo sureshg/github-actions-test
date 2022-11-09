@@ -12,14 +12,14 @@ defaults:
 
 jobs:
   test:
-    runs-on: Running the test on ${{ matrix.os }}
+    name: OpenJDK ${{ matrix.java }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix:
         java: [ '20' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
 
-    name: OpenJDK ${{ matrix.java }} (${{ matrix.os }})
     steps:
       - uses: actions/checkout@v3
 
