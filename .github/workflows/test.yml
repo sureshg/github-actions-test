@@ -19,16 +19,16 @@ jobs:
         java: [ '20' ]
         os: [ 'ubuntu-latest', 'macos-latest', 'windows-latest' ]
 
-    name: OpenJDK ${{ matrix.Java }} (${{ matrix.os }})
+    name: OpenJDK ${{ matrix.java }} (${{ matrix.os }})
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup OpenJDK EA ${{ matrix.Java }} build
+      - name: Setup OpenJDK EA ${{ matrix.java }} build
         id: setup-java
         uses: oracle-actions/setup-java@v1
         with:
           website: jdk.java.net
-          release: ${{ matrix.Java }}
+          release: ${{ matrix.java }}
           install: true
 
       - name: Java options check
