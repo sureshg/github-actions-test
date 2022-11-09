@@ -38,7 +38,7 @@ jobs:
           if [[ $OSTYPE =~ ^msys ]]; then
             MY_TMP_PATH="c:\\temp\\"
           else
-            MY_TMP_PATH="$(dirname "$(mktemp -u)")"
+            MY_TMP_PATH="$(dirname "$(mktemp -u)")/"
           fi
 
           echo "Temp Dir = ${MY_TMP_PATH}"
@@ -54,12 +54,12 @@ jobs:
                -Xmx128M \
                -XX:+PrintCommandLineFlags \
                -XX:+UseZGC \
-               -Xlog:cds,safepoint,gc\*:file="${MY_TMP_PATH}/openjdk-playground-gc-%p-%t.log":level,tags,time,uptime,pid,tid:filecount=5,filesize=10m \
+               -Xlog:cds,safepoint,gc\*:file="${MY_TMP_PATH}openjdk-playground-gc-%p-%t.log":level,tags,time,uptime,pid,tid:filecount=5,filesize=10m \
                -XX:StartFlightRecording=settings=profile.jfc,filename="${MY_TMP_PATH}"/openjdk-playground.jfr,name=openjdk-playground,maxsize=100M,dumponexit=true,memory-leaks=gc-roots,gc=detailed,jdk.ObjectCount#enabled=true,jdk.SecurityPropertyModification#enabled=true,jdk.TLSHandshake#enabled=true,jdk.X509Certificate#enabled=true,jdk.X509Validation#enabled=true \
                -XX:FlightRecorderOptions:stackdepth=64 \
                -XX:+HeapDumpOnOutOfMemoryError \
-               -XX:HeapDumpPath="${MY_TMP_PATH}"/openjdk-playground-%p.hprof \
-               -XX:ErrorFile="${MY_TMP_PATH}"/openjdk-playground-hs-err-%p.log \
+               -XX:HeapDumpPath="${MY_TMP_PATH}"openjdk-playground-%p.hprof \
+               -XX:ErrorFile="${MY_TMP_PATH}"openjdk-playground-hs-err-%p.log \
                -XX:OnOutOfMemoryError='kill -9 %p' \
                -XX:+ExitOnOutOfMemoryError \
                -Djava.awt.headless=true \
@@ -70,12 +70,12 @@ jobs:
                -Djdk.includeInExceptions=hostInfo,jar \
                -XX:+UnlockDiagnosticVMOptions \
                -XX:+LogVMOutput \
-               -XX:LogFile="${MY_TMP_PATH}"/openjdk-playground-jvm.log \
+               -XX:LogFile="${MY_TMP_PATH}"openjdk-playground-jvm.log \
                -XX:NativeMemoryTracking=summary \
                -XX:+ShowHiddenFrames \
                -ea \
                --version 
           
           echo "Temp directory contents are after java run..."
-          ls -ltrh ${MY_TMP_PATH}/openjdk-playground*
+          ls -ltrh ${MY_TMP_PATH}
        
