@@ -3,24 +3,26 @@ name: Github Action Test
 env:
   author: Suresh
   name: Github Action Test
-  deployKey: test 
+  deployKey: test
 
 on:
   push:
-    branches: 
+    branches:
       - main
       - release/*
     tags:
       - '*'
+    paths-ignore:
+      - '.github/workflows/test.yml'
   pull_request:
-     branches: 
-       - main
+    branches:
+      - main
   schedule:
-       - cron: "0 0 * * *"
-       
+    - cron: "0 0 * * *"
+
   workflow_dispatch:
-   
-            
+
+
 jobs:
   build:
     name: 🏗️ Java app on ${{ matrix.os }} for JDK ${{ matrix.java }}
@@ -31,8 +33,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        java: ['17']
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        java: [ '17' ]
         include:
           # includes a new variable of os specific binary name for the matrix leg matching the os and version
           - os: ubuntu-latest
@@ -40,20 +42,20 @@ jobs:
           - os: macos-latest
             bin-name: hello-mac
           - os: windows-latest
-            bin-name: hello-win.exe  
-        
+            bin-name: hello-win.exe
+
     steps:
       - name: Checking out the source code
-        uses: actions/checkout@v3    
+        uses: actions/checkout@v3
         id: code-checkout
         timeout-minutes: 2
         if: contains(matrix.os, 'latest')
         env:
-          name: checkout 
-  
+          name: checkout
+
       - name: Gradle cache
         uses: actions/cache@v3.0.11
-        if:  ${{ false }}
+        if: ${{ false }}
         id: gradle-cache
         continue-on-error: true
         with:
@@ -63,19 +65,19 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-            
+
       - name: Set up JDK
         id: setup-jdk
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: ${{ matrix.java }} 
+          java-version: ${{ matrix.java }}
           # cache: 'gradle'
-        
+
       - name: Run Java app
         run: |
-           java --show-version Main.java
-        shell: bash     
+          java --show-version Main.java
+        shell: bash
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
 
@@ -83,7 +85,7 @@ jobs:
         if: failure()
         run: |
           echo This previous step failed "${author}"
-          
+
       - name: Push and commit a file.
         if: runner.os == 'Linux'
         run: |
@@ -94,36 +96,36 @@ jobs:
           git commit -m "generated"
           git push origin HEAD:main
           # git push origin HEAD:${{ github.event.repository.default_branch }}
-          
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-        
+
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
         run: echo "$JOB_CONTEXT"
-        
+
       - name: Dump steps context
         env:
           STEPS_CONTEXT: ${{ toJson(steps) }}
         run: echo "$STEPS_CONTEXT"
-        
+
       - name: Dump runner context
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
         run: echo "$RUNNER_CONTEXT"
-        
+
       - name: Dump strategy context
         env:
           STRATEGY_CONTEXT: ${{ toJson(strategy) }}
         run: echo "$STRATEGY_CONTEXT"
-        
+
       - name: Dump matrix context
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"     
+        run: echo "$MATRIX_CONTEXT"
 
   container-build:
     name: 🚢 Java on Container
@@ -147,7 +149,7 @@ jobs:
           java --show-version Main.java
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
-        shell: sh  
+        shell: sh
 
       - name: Github Action Contexts
         run: |

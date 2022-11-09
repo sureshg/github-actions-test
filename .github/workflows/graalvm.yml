@@ -3,6 +3,8 @@ name: GraalVM Native Image
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '.github/workflows/test.yml'
   pull_request:
     branches: [ main ]
   schedule:
