@@ -34,13 +34,17 @@ jobs:
       - name: Java options check ${{ env.OSTYPE }}
         run: |
           java --version
-          MY_TMP_PATH=$(dirname $(mktemp -u))
+          
+          if [[ $OSTYPE =~ ^msys ]]; then
+            MY_TMP_PATH="c:\temp"
+          else
+            MY_TMP_PATH="$(dirname "$(mktemp -u)")"
+          fi
+
           echo "Temp Dir = ${MY_TMP_PATH}"
-          
-          echo "OS is: ${OSTYPE}"
-          
+        
           echo "Temp directory contents are..."
-          ls -ltrh ${MY_TMP_PATH}
+          ls -ltrh ${MY_TMP_PATH}/openjdk-playground*
           
           echo "Starting the java app..."
           java --enable-preview \
@@ -50,7 +54,7 @@ jobs:
                -Xmx128M \
                -XX:+PrintCommandLineFlags \
                -XX:+UseZGC \
-               -Xlog:cds,safepoint,gc\*:file="${MY_TMP_PATH}"/openjdk-playground-gc-%p-%t.log:level,tags,time,uptime,pid,tid:filecount=5,filesize=10m \
+               -Xlog:cds,safepoint,gc\*:file="${MY_TMP_PATH}/openjdk-playground-gc-%p-%t.log":level,tags,time,uptime,pid,tid:filecount=5,filesize=10m \
                -XX:StartFlightRecording=settings=profile.jfc,filename="${MY_TMP_PATH}"/openjdk-playground.jfr,name=openjdk-playground,maxsize=100M,dumponexit=true,memory-leaks=gc-roots,gc=detailed,jdk.ObjectCount#enabled=true,jdk.SecurityPropertyModification#enabled=true,jdk.TLSHandshake#enabled=true,jdk.X509Certificate#enabled=true,jdk.X509Validation#enabled=true \
                -XX:FlightRecorderOptions:stackdepth=64 \
                -XX:+HeapDumpOnOutOfMemoryError \
