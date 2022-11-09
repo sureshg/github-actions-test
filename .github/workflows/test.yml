@@ -15,7 +15,7 @@ jobs:
     name: OpenJDK ${{ matrix.java }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         java: [ '20' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
