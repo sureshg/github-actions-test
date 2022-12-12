@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '20' ]
+        java: [ '21' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
 
     steps:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Setup OpenJDK EA ${{ matrix.java }} build
         id: setup-java
-        uses: oracle-actions/setup-java@v1
+        uses: oracle-actions/setup-java@main
         with:
           website: jdk.java.net
           release: ${{ matrix.java }}
