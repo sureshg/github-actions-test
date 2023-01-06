@@ -44,17 +44,16 @@ jobs:
           echo "TEMP        = $TEMP"
           echo "TMPDIR      = $TMPDIR"
           echo "RUNNER_TEMP = $RUNNER_TEMP"
+          echo "$(java -XshowSettings:properties -version 2>&1 | grep tmpdir)"
           echo "/TMP        = $(ls -l /tmp)"
           echo "---------------------------------------"
           
-          printf "------- Env Vars: ------- \n"
+          echo "------- Env Vars: -------"
           printenv
-          echo "------------------------------"
+          echo "-------------------------"
 
           printf "Setting the Temp Dir \n"
           MY_TMP_PATH=$MKTEMP_PATH
-
-          printf "\n"
           echo "Temp Dir = ${MY_TMP_PATH}"
           
           printf "\n"
