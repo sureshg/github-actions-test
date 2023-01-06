@@ -31,21 +31,22 @@ jobs:
           release: ${{ matrix.java }}
           install: true
 
-      - name: Java options check ${{ env.OSTYPE }}
+      - name: Java options check ${{ env.RUNNER_OS }}
         run: |
           printf "Java Version: \n" 
           java --version
           
           echo "-------- TMP PATH for $OSTYPE --------"
           MKTEMP_PATH="$(dirname "$(mktemp -u)")/"
+          JAVA_TMP_DIR="$(java -XshowSettings:properties -version 2>&1 | grep java.io.tmpdir | cut -d'=' -f2)"
           
-          echo "MKTEMP_PATH = $MKTEMP_PATH"
-          echo "TMP         = $TMP"
-          echo "TEMP        = $TEMP"
-          echo "TMPDIR      = $TMPDIR"
-          echo "RUNNER_TEMP = $RUNNER_TEMP"
-          echo "$(java -XshowSettings:properties -version 2>&1 | grep tmpdir)"
-          echo "/TMP        = $(ls -l /tmp)"
+          echo "MKTEMP_PATH    = $MKTEMP_PATH"
+          echo "TMP            = $TMP"
+          echo "TEMP           = $TEMP"
+          echo "TMPDIR         = $TMPDIR"
+          echo "RUNNER_TEMP    = $RUNNER_TEMP"
+          echo "JAVA_IO_TMPDIR = $JAVA_TMP_DIR"
+          echo "/TMP           = $(ls -l /tmp)"
           echo "---------------------------------------"
           
           echo "------- Env Vars: -------"
@@ -53,7 +54,7 @@ jobs:
           echo "-------------------------"
 
           printf "Setting the Temp Dir \n"
-          MY_TMP_PATH=$MKTEMP_PATH
+          MY_TMP_PATH=$JAVA_TMP_DIR
           echo "Temp Dir = ${MY_TMP_PATH}"
           
           printf "\n"
