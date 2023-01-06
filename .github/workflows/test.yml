@@ -33,8 +33,13 @@ jobs:
 
       - name: Java options check ${{ env.OSTYPE }}
         run: |
+          printf "Java Version \n" 
           java --version
           
+          printf "Env Vars \n"
+          printenv
+          
+          printf "Setting the Temp Dir \n"
           if [[ $OSTYPE =~ ^msys ]]; then
             MY_TMP_PATH="c:\\temp\\"
           else
