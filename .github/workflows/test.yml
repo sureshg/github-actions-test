@@ -33,10 +33,19 @@ jobs:
 
       - name: Java options check ${{ env.OSTYPE }}
         run: |
-          printf "Java Version \n" 
+          printf "Java Version: \n" 
           java --version
           
-          printf "Env Vars \n"
+          echo "------ TMP PATH for $OSTYPE --------"
+          MKTEMP_PATH="$(dirname "$(mktemp -u)")/"
+          echo "MKTEMP_PATH = $MKTEMP_PATH"
+          echo "TEMP = $TEMP"
+          echo "TMP = $TMP"
+          echo "TMPDIR = $TMPDIR"
+          echo "/tmp = $(ls -l /tmp)"
+          echo "-------------"
+          
+          printf "Env Vars: \n"
           printenv
           
           printf "Setting the Temp Dir \n"
