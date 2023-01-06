@@ -36,24 +36,23 @@ jobs:
           printf "Java Version: \n" 
           java --version
           
-          echo "------ TMP PATH for $OSTYPE --------"
+          echo "-------- TMP PATH for $OSTYPE --------"
           MKTEMP_PATH="$(dirname "$(mktemp -u)")/"
+          
           echo "MKTEMP_PATH = $MKTEMP_PATH"
-          echo "TEMP = $TEMP"
-          echo "TMP = $TMP"
-          echo "TMPDIR = $TMPDIR"
-          echo "/tmp = $(ls -l /tmp)"
-          echo "-------------"
+          echo "TMP         = $TMP"
+          echo "TEMP        = $TEMP"
+          echo "TMPDIR      = $TMPDIR"
+          echo "RUNNER_TEMP = $RUNNER_TEMP"
+          echo "/TMP        = $(ls -l /tmp)"
+          echo "---------------------------------------"
           
-          printf "Env Vars: \n"
+          printf "------- Env Vars: ------- \n"
           printenv
-          
+          echo "------------------------------"
+
           printf "Setting the Temp Dir \n"
-          if [[ $OSTYPE =~ ^msys ]]; then
-            MY_TMP_PATH="c:\\temp\\"
-          else
-            MY_TMP_PATH="$(dirname "$(mktemp -u)")/"
-          fi
+          MY_TMP_PATH=$MKTEMP_PATH
 
           printf "\n"
           echo "Temp Dir = ${MY_TMP_PATH}"
