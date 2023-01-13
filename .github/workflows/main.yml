@@ -34,7 +34,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        java: [ '17' ]
+        java: [ '19' ]
         include:
           # includes a new variable of os specific binary name for the matrix leg matching the os and version
           - os: ubuntu-latest
@@ -134,7 +134,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        jdk: [ "19-slim", "19-alpine" ]
+        jdk: [ "21-slim" ]
 
     container:
       image: openjdk:${{ matrix.jdk }}

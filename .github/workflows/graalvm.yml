@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         version: [ dev ]
-        java-version: [ '17' ]
+        java-version: [ '19' ]
         components: [ 'native-image' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
     #   include:
@@ -46,6 +46,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           components: ${{ matrix.components }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
 
       - name: Check environment
         if: runner.os != 'Windows'
@@ -80,7 +81,7 @@ jobs:
 
 
   native-build-musl:
-    name: GraalVM CE dev JDK17 + musl static image
+    name: GraalVM CE dev JDK19 + musl static image
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -90,10 +91,11 @@ jobs:
         uses: graalvm/setup-graalvm@v1
         with:
           version: 'dev'
-          java-version: '17'
+          java-version: '19'
           components: 'native-image'
           native-image-musl: 'true'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
 
       - name: Build static app image with musl
         run: |
