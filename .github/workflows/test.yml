@@ -55,10 +55,7 @@ jobs:
 
           printf "Setting the Temp Dir \n"
           MY_TMP_PATH=$JAVA_TMP_DIR
-          echo "Temp Dir = ${MY_TMP_PATH}"
-          
-          printf "\n"
-          echo "Temp directory contents are..."
+          echo "Temp Dir = ${MY_TMP_PATH}, contents are..."
           ls -ltrh ${MY_TMP_PATH}
           
           printf "\n"
