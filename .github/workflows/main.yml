@@ -54,7 +54,7 @@ jobs:
           name: checkout
 
       - name: Gradle cache
-        uses: actions/cache@v3.2.6
+        uses: actions/cache@v3.3.1
         if: ${{ false }}
         id: gradle-cache
         continue-on-error: true
