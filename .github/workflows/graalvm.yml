@@ -37,8 +37,6 @@ jobs:
     steps:
       - name: 🛎️ Check out repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: ☕ Setup GraalVM CE Dev Build
         uses: graalvm/setup-graalvm@v1
@@ -77,8 +75,6 @@ jobs:
     steps:
       - name: 🛎️ Check out repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: ☕ Setup GraalVM CE Dev Build
         uses: graalvm/setup-graalvm@v1
