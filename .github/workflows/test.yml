@@ -17,18 +17,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '21' ]
+        java: [ 'ea' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup OpenJDK EA ${{ matrix.java }} build
+      - name: Setup OpenJDK ${{ matrix.java }} latest build
         id: setup-java
         uses: oracle-actions/setup-java@main
         with:
           website: jdk.java.net
           release: ${{ matrix.java }}
+          version: latest
           install: true
 
       - name: Java options check ${{ env.RUNNER_OS }}
@@ -63,7 +64,7 @@ jobs:
           printf "\n"
           echo "Starting the java app..."
           java --enable-preview \
-               --add-modules=jdk.incubator.concurrent,jdk.incubator.vector \
+               --add-modules=ALL-SYSTEM  \
                --enable-native-access=ALL-UNNAMED \
                -XshowSettings:all \
                -Xmx128M \

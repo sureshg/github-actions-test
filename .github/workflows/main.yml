@@ -27,16 +27,14 @@ jobs:
   build:
     name: 🏗️ Java app on ${{ matrix.os }} for JDK ${{ matrix.java }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 10
     env:
       jdk-version: ${{ matrix.java }}
     strategy:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        java: [ '19' ]
+        java: [ '20' ]
         include:
-          # includes a new variable of os specific binary name for the matrix leg matching the os and version
           - os: ubuntu-latest
             bin-name: hello-linux
           - os: macos-latest
@@ -134,7 +132,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        jdk: [ "21-slim" ]
+        jdk: [ "22-slim" ]
 
     container:
       image: openjdk:${{ matrix.jdk }}

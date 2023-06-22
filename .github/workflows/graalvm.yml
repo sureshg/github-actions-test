@@ -17,9 +17,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        version: [ dev ]
-        java-version: [ '20' ]
-        components: [ 'native-image' ]
+        java-version: [ 'dev' ]
+        distribution: [ 'graalvm-community' ]
         os: [ macos-latest, windows-latest, ubuntu-latest ]
     #   include:
     #     - os: ubuntu-18.04
@@ -36,24 +35,38 @@ jobs:
     #       components: 'native-image'
 
     steps:
-      - name: Check out repository
+      - name: 🛎️ Check out repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Setup GraalVM CE Dev Build
+      - name: ☕ Setup GraalVM CE Dev Build
         uses: graalvm/setup-graalvm@v1
         with:
-          version: ${{ matrix.version }}
           java-version: ${{ matrix.java-version }}
-          components: ${{ matrix.components }}
+          distribution: ${{ matrix.distribution }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'gradle'
+          set-java-home: 'true'
           native-image-job-reports: 'true'
 
       - name: Check environment
+        if: runner.os != 'Windows'
         run: |
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
           java --version
           native-image --version
+
+      - name: Check Windows environment
+        if: runner.os == 'Windows'
+        run: |
+          echo "GRAALVM_HOME: $env:GRAALVM_HOME"
+          echo "JAVA_HOME: $env:JAVA_HOME"
+          java --version
+          native-image --version
+          echo "Microsoft C/C++ Compiler Version"
+          cl.exe
 
       - name: Build and run App
         run: |
@@ -70,20 +83,23 @@ jobs:
 
 
   native-build-musl:
-    name: GraalVM CE dev JDK20 + musl static image
+    name: GraalVM CE dev JDK19 + musl static image
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: 🛎️ Check out repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Setup GraalVM CE Dev Build
+      - name: ☕ Setup GraalVM CE Dev Build
         uses: graalvm/setup-graalvm@v1
         with:
-          version: 'dev'
-          java-version: '20'
-          components: 'native-image'
-          native-image-musl: 'true'
+          java-version: 'dev'
+          distribution: 'graalvm-community'
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'gradle'
+          native-image-musl: 'true'
+          set-java-home: 'true'
           native-image-job-reports: 'true'
 
       - name: Build static app image with musl
