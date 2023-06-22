@@ -44,7 +44,6 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: ${{ matrix.distribution }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          cache: 'gradle'
           set-java-home: 'true'
           native-image-job-reports: 'true'
 
@@ -82,7 +81,6 @@ jobs:
           java-version: 'dev'
           distribution: 'graalvm-community'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          cache: 'gradle'
           native-image-musl: 'true'
           set-java-home: 'true'
           native-image-job-reports: 'true'
