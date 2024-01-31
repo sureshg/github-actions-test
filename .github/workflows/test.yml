@@ -50,16 +50,16 @@ jobs:
           echo "RUNNER_TEMP -------> $RUNNER_TEMP"
           echo "JAVA_IO_TMPDIR ----> $JAVA_TMP_DIR"
           echo "JAVA_FILE_ENC -----> $JAVA_FILE_ENC"
-          echo "/TMP --------------> $(ls -l /tmp)"
           echo "ARCH --------------> ${RUNNER_ARCH}"
           echo "RUNNER_JAVA_HOME --> ${!RUNNER_JAVA_HOME_VAR}"
+          echo "/TMP --------------> $(ls -l /tmp)"
           echo "---------------------------------------"
 
-          echo "------- JAVA_HOME: -------"
+          echo "------- JAVA_HOME -------"
           ls -ltrh "${!RUNNER_JAVA_HOME_VAR}"
           echo "-------------------------"
           
-          echo "------- Env Vars: -------"
+          echo "------- Env Vars -------"
           printenv
           echo "-------------------------"
 
