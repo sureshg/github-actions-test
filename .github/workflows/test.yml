@@ -41,7 +41,13 @@ jobs:
           MKTEMP_PATH="$(dirname "$(mktemp -u)")/"
           JAVA_TMP_DIR="$(java -XshowSettings:properties -version 2>&1 | awk 'tolower($0) ~ /java.io.tmpdir/{print $NF}')/"
           JAVA_FILE_ENC="$(echo 'System.out.println(System.getProperty("file.encoding"))' | jshell -s -)"
-          RUNNER_JAVA_HOME_VAR="JAVA_HOME_21_${RUNNER_ARCH}"
+          
+          if [ "$RUNNER_ARCH" = "ARM64" ]; then
+             ARCH="arm64"
+          else
+             ARCH="$RUNNER_ARCH"
+          fi
+          RUNNER_JAVA_HOME_VAR="JAVA_HOME_21_${ARCH}"
           
           echo "MKTEMP_PATH -------> $MKTEMP_PATH"
           echo "TMP ---------------> $TMP"
