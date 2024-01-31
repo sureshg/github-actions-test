@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         java: [ 'ea' ]
-        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        os: [ macos-latest, windows-latest, ubuntu-latest, macos-14 ]
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -50,7 +50,13 @@ jobs:
           echo "JAVA_IO_TMPDIR = $JAVA_TMP_DIR"
           echo "JAVA_FILE_ENC  = $JAVA_FILE_ENC"
           echo "/TMP           = $(ls -l /tmp)"
+          echo "ARCH           = ${RUNNER_ARCH}"
+          echo "JAVA_HOME_ENV  = $JAVA_HOME_17_${RUNNER_ARCH}"
           echo "---------------------------------------"
+
+          echo "------- JAVA_HOME: -------"
+          ls -ltrh "$JAVA_HOME_17_${RUNNER_ARCH}"
+          echo "-------------------------"
           
           echo "------- Env Vars: -------"
           printenv
