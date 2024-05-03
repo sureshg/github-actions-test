@@ -131,41 +131,38 @@ public class Main {
         var currTime = System.currentTimeMillis();
         var vmTime =
                 ProcessHandle.current().info().startInstant().orElseGet(Instant::now).toEpochMilli();
-        var stats =
-                """
-                            
-                        +---------Summary----------+
-                        | Processes      : %-5d   |
-                        | Dns Addresses  : %-5d   |
-                        | Trust Stores   : %-5d   |
-                        | TimeZones      : %-5d   |
-                        | CharSets       : %-5d   |
-                        | Locales        : %-5d   |
-                        | Countries      : %-5d   |
-                        | Languages      : %-5d   |
-                        | Currencies     : %-5d   |
-                        | Env Vars       : %-5d   |
-                        | Sys Props      : %-5d   |
-                        | Total time     : %-5dms |
-                        | JVM Startup    : %-5dms |
-                        | Process Time   : %-5dms |
-                        +--------------------------+
-                        """
-                        .formatted(
-                                ps.size(),
-                                dns.size(),
-                                issuers.size(),
-                                tz.size(),
-                                cs.size(),
-                                locales.length,
-                                countries.length,
-                                languages.length,
-                                currencies.size(),
-                                env.size(),
-                                props.size(),
-                                (currTime - vmTime),
-                                (start - vmTime),
-                                (currTime - start));
+        var stats = """    
+                +---------Summary----------+
+                | Processes      : %-5d   |
+                | Dns Addresses  : %-5d   |
+                | Trust Stores   : %-5d   |
+                | TimeZones      : %-5d   |
+                | CharSets       : %-5d   |
+                | Locales        : %-5d   |
+                | Countries      : %-5d   |
+                | Languages      : %-5d   |
+                | Currencies     : %-5d   |
+                | Env Vars       : %-5d   |
+                | Sys Props      : %-5d   |
+                | Total time     : %-5dms |
+                | JVM Startup    : %-5dms |
+                | Process Time   : %-5dms |
+                +--------------------------+
+                """.formatted(
+                ps.size(),
+                dns.size(),
+                issuers.size(),
+                tz.size(),
+                cs.size(),
+                locales.length,
+                countries.length,
+                languages.length,
+                currencies.size(),
+                env.size(),
+                props.size(),
+                (currTime - vmTime),
+                (start - vmTime),
+                (currTime - start));
         out.println(stats);
     }
 
