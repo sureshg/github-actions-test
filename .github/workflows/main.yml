@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Checking out the source code
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
         id: code-checkout
         timeout-minutes: 2
         if: contains(matrix.os, 'latest')
@@ -139,7 +139,7 @@ jobs:
 
     steps:
       - name: Check out the source code
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
 
       - name: Run Java App on OpenJDK ${{ matrix.jdk }} container image
         if: always()
