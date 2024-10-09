@@ -85,7 +85,7 @@ jobs:
           echo This previous step failed "${author}"
 
       - name: Push and commit a file.
-        if: {{ false }}
+        if: ${{ false }}
         run: |
           date > generated.txt
           git config user.name github-actions
