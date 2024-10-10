@@ -81,7 +81,7 @@ jobs:
       - name: Copy the generated source
         run: |
           rm -rf jextract/src/main/java/* || true
-          ls -ltrh jextract-src
+          ls -ltrh jextract-src/jextract-src-macos-latest
 #          for artifact in $(ls ${{ github.workspace }}/jextract-src); do
 #            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
 #          done
