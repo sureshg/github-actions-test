@@ -13,42 +13,51 @@ defaults:
 
 jobs:
   jextract:
-    name: OpenJDK ${{ matrix.release }} (${{ matrix.os }})
+    name: OpenJDK (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ macos-latest, windows-latest, ubuntu-latest, macos-13 ]
-        release: [ 'jextract' ]
         include:
           - os: ubuntu-latest
-            header: jextract/headers/ioctl.h
+            header: jextract/gen/c/ioctl.h
             package: linux.x64
           - os: macos-latest
-            header: jextract/headers/ioctl.h
+            header: jextract/gen/c/ioctl.h
             package: macos.arm64
           - os: macos-13
-            header: jextract/headers/ioctl.h
+            header: jextract/gen/c/ioctl.h
             package: macos.amd64
           - os: windows-latest
-            header: jextract/headers/windows.h
+            header: jextract/gen/c/windows.h
             package: windows.x64
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install ${{ matrix.release }} latest build
+      - name: Install jextract latest build
+        id: setup-jextract
+        uses: oracle-actions/setup-java@main
+        with:
+          website: jdk.java.net
+          release: 'jextract'
+          version: latest
+          install: true
+
+      - name: Install OpenJDK EA latest build
         id: setup-java
         uses: oracle-actions/setup-java@main
         with:
           website: jdk.java.net
-          release: ${{ matrix.release }}
+          release: 'ea'
           version: latest
           install: true
 
       - name: Run jextract on ${{ env.RUNNER_OS }}
         run: |
-          printf "Jextract Version: \n" 
+          java -version
           jextract --version
+          
           
           if [ "$RUNNER_ARCH" = "ARM64" ]; then
              ARCH="arm64"
