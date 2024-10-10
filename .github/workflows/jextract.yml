@@ -62,7 +62,7 @@ jobs:
           jextract/gen/script/${{ matrix.script }}
 
       - name: Checkin the generated source
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
 
           
        
