@@ -62,7 +62,7 @@ jobs:
       - name: Uploading generated sources
         uses: actions/upload-artifact@v4
         with:
-          name: jextract-src-${{ matrix.os }}
+          name: src
           path: jextract/src
 
   merge:
@@ -84,8 +84,6 @@ jobs:
       - name: Copy the generated source
         run: |
           rm -rf jextract/src/main/java/* || true
-          find jextract/src -mindepth 2 -exec mv -t jextract/src -- {} +
-          find jextract/src -mindepth 1 -type d -empty -delete
           ls -lhR jextract
 #          for artifact in $(ls ${{ github.workspace }}/jextract-src); do
 #            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
