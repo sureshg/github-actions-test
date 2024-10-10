@@ -20,20 +20,19 @@ jobs:
         os: [ macos-latest, windows-latest, ubuntu-latest, macos-13 ]
         include:
           - os: ubuntu-latest
-            header: jextract/gen/c/ioctl.h
-            package: linux.x64
+            script: linux.sh
           - os: macos-latest
-            header: jextract/gen/c/ioctl.h
-            package: macos.arm64
+            script: macos.sh
           - os: macos-13
-            header: jextract/gen/c/ioctl.h
-            package: macos.amd64
+            script: macos.sh
           - os: windows-latest
-            header: jextract/gen/c/windows.h
-            package: windows.x64
+            script: windows.sh
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set OS, Arch and Package
+        run: jextract/gen/script/set-package.sh
 
       - name: Install jextract latest build
         id: setup-jextract
@@ -53,33 +52,17 @@ jobs:
           version: latest
           install: true
 
+
       - name: Run jextract on ${{ env.RUNNER_OS }}
         run: |
           java -version
           jextract --version
           
-          
-          if [ "$RUNNER_ARCH" = "ARM64" ]; then
-             ARCH="arm64"
-          else
-             ARCH="$RUNNER_ARCH"
-          fi
-          RUNNER_JAVA_HOME_VAR="JAVA_HOME_21_${ARCH}"
-          
-          echo "ARCH --------------> ${RUNNER_ARCH}"
-          echo "RUNNER_JAVA_HOME --> ${!RUNNER_JAVA_HOME_VAR}"
-          echo "JAVA_HOME ---------> $JAVA_HOME"
-          echo "OS ----------------> $RUNNER_OS"
-          echo "OS Type -----------> $OSTYPE"
-          echo "---------------------------------------"
+          chmod +x jextract/gen/script/${{ matrix.script }}
+          jextract/gen/script/${{ matrix.script }}
 
-          echo "------- JAVA_HOME -------"
-          ls -ltrh "${!RUNNER_JAVA_HOME_VAR}"
-          echo "-------------------------"
-          
-          echo "------- Env Vars -------"
-          printenv
-          echo "-------------------------"
+      - name: Checkin the generated source
+        uses: stefanzweifel/git-auto-commit-action@v4
 
           
        
