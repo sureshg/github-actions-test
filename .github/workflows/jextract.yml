@@ -59,31 +59,33 @@ jobs:
           jextract --version
           jextract/gen/script/${{ matrix.script }}
 
-      - name: Checkin the generated source
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Uploading generated sources
+        uses: actions/upload-artifact@v4
         with:
-          create_branch: true
-          branch: update-${{ matrix.os }}
-          commit_message: "Generated source using jextract"
+          name: gen-src-${{ matrix.os }}
+          path: jextract/src/main/java
 
   merge:
     name: Merge branches
     runs-on: ubuntu-latest
     needs: jextract
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
+      - name: Check out the source code
+        uses: actions/checkout@v4
 
-      - name: Clean up, merge, and delete branches
+      - name: Download source artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: jextract-sources
+
+      - name: Copy the generated source
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git fetch --all
-          rm -rf jextract/src/*
-          git add jextract/src/*
-          for branch in $(git branch -r | grep 'update-'); do
-            git merge --no-ff $branch -m "Merge $branch"
-            git push origin --delete ${branch#origin/}
+          rm -rf jextract/src/main/java/* || true
+          for artifact in $(ls ${{ github.workspace }}/jextract-sources); do
+            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
           done
-          git push origin main
+
+      - name: Checkin the generated source
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Generated source using jextract"
