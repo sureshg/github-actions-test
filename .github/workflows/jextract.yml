@@ -79,6 +79,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git fetch --all
           rm -rf jextract/src/*
           git add jextract/src/*
           for branch in $(git branch -r | grep 'update-'); do
