@@ -62,7 +62,7 @@ jobs:
       - name: Uploading generated sources
         uses: actions/upload-artifact@v4
         with:
-          name: src
+          name: jextract-${{ matrix.os }}
           path: jextract/src
 
   merge:
