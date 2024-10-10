@@ -62,8 +62,8 @@ jobs:
       - name: Uploading generated sources
         uses: actions/upload-artifact@v4
         with:
-          name: gen-src-${{ matrix.os }}
-          path: jextract/src/main/java
+          name: jextract-src-${{ matrix.os }}
+          path: jextract/src
 
   merge:
     name: Merge branches
@@ -76,16 +76,17 @@ jobs:
       - name: Download source artifacts
         uses: actions/download-artifact@v4
         with:
-          path: jextract-sources
+          path: jextract-src
 
       - name: Copy the generated source
         run: |
           rm -rf jextract/src/main/java/* || true
-          for artifact in $(ls ${{ github.workspace }}/jextract-sources); do
-            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
-          done
+          ls -ltrh jextract-src
+#          for artifact in $(ls ${{ github.workspace }}/jextract-src); do
+#            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
+#          done
 
-      - name: Checkin the generated source
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Generated source using jextract"
+#      - name: Checkin the generated source
+#        uses: stefanzweifel/git-auto-commit-action@v5
+#        with:
+#          commit_message: "Generated source using jextract"
