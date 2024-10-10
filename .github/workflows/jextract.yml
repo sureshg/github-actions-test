@@ -32,7 +32,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set OS, Arch and Package
-        run: jextract/gen/script/set-package.sh
+        run: |
+         jextract/gen/script/set-package.sh
 
       - name: Install jextract latest build
         id: setup-jextract
