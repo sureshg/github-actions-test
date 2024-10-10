@@ -73,15 +73,19 @@ jobs:
       - name: Check out the source code
         uses: actions/checkout@v4
 
+      - name: Clean up jextract src
+        run: rm -rf jextract/src || true
+
       - name: Download source artifacts
         uses: actions/download-artifact@v4
         with:
-          path: jextract-src
+          path: jextract
+          name: src
 
       - name: Copy the generated source
         run: |
           rm -rf jextract/src/main/java/* || true
-          ls -ltrh jextract-src/jextract-src-macos-latest
+          ls -lhR jextract
 #          for artifact in $(ls ${{ github.workspace }}/jextract-src); do
 #            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
 #          done
