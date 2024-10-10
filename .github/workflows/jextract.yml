@@ -79,8 +79,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          rm -rf jextract/gen/src/*
-          git add jextract/gen/src/*
+          rm -rf jextract/src/*
+          git add jextract/src/*
           for branch in $(git branch -r | grep 'update-'); do
             git merge --no-ff $branch -m "Merge $branch"
             git push origin --delete ${branch#origin/}
