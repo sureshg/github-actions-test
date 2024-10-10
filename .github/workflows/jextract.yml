@@ -85,11 +85,8 @@ jobs:
         run: |
           find jextract/src -mindepth 1 -maxdepth 1 -type d -exec sh -c 'cp -R "$0"/* jextract/src && rm -rf "$0"' {} \;
           find jextract -type f
-#          for artifact in $(ls ${{ github.workspace }}/jextract-src); do
-#            tar -xzf ${{ github.workspace }}/jextract-sources/$artifact -C jextract/src/main/java
-#          done
 
-#      - name: Checkin the generated source
-#        uses: stefanzweifel/git-auto-commit-action@v5
-#        with:
-#          commit_message: "Generated source using jextract"
+      - name: Checkin the generated source
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Generated source using jextract"
