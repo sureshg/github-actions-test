@@ -1,4 +1,4 @@
-name: Test
+name: jextract
 
 on:
   push:
@@ -33,8 +33,6 @@ jobs:
             header: jextract/headers/windows.h
             package: windows.x64
 
-
-
     steps:
       - uses: actions/checkout@v4
 
@@ -49,8 +47,8 @@ jobs:
 
       - name: Run jextract on ${{ env.RUNNER_OS }}
         run: |
-          printf "Java Version: \n" 
-          java --version
+          printf "Jextract Version: \n" 
+          jextract --version
           
           if [ "$RUNNER_ARCH" = "ARM64" ]; then
              ARCH="arm64"
@@ -74,5 +72,5 @@ jobs:
           printenv
           echo "-------------------------"
 
-          jextract --version
+          
        
