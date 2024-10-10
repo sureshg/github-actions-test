@@ -16,7 +16,6 @@ jobs:
     name: OpenJDK (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
-      max-parallel: 1
       matrix:
         os: [ macos-latest, windows-latest, ubuntu-latest, macos-13 ]
         include:
@@ -54,7 +53,7 @@ jobs:
           install: true
 
 
-      - name: Run jextract on ${{ env.RUNNER_OS }}
+      - name: Run jextract on ${{ matrix.os }}
         run: |
           java -version
           jextract --version
@@ -63,9 +62,27 @@ jobs:
       - name: Checkin the generated source
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          create_branch: true
+          branch: update-${{ matrix.os }}
           commit_message: "Generated source using jextract"
 
+  merge:
+    name: Merge branches
+    runs-on: ubuntu-latest
+    needs: jextract
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
 
-
-          
-       
+      - name: Clean up, merge, and delete branches
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          rm -rf jextract/gen/src/*
+          git add jextract/gen/src/*
+          for branch in $(git branch -r | grep 'update-'); do
+            git merge --no-ff $branch -m "Merge $branch"
+            git push origin --delete ${branch#origin/}
+          done
+          git push origin main
