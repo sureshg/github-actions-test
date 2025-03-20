@@ -610,7 +610,7 @@ public class ioctl_h {
                 if (TRACE_DOWNCALLS) {
                     traceDowncall("ioctl", x0, x1, x2);
                 }
-                return (int)spreader.invokeExact(x0, x1, x2);
+                return (int) spreader.invokeExact(x0, x1, x2);
             } catch(IllegalArgumentException | ClassCastException ex$)  {
                 throw ex$; // rethrow IAE from passing wrong number/type of args
             } catch (Throwable ex$) {
