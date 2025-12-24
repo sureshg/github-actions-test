@@ -61,7 +61,7 @@ jobs:
           ./app
 
       - name: Upload ${{ matrix.os }} app binary
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: app-${{ matrix.os }}
           path: app*
@@ -92,7 +92,7 @@ jobs:
           ./app-static
 
       - name: Uploading app static binary
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: app-static-linux
           path: |
