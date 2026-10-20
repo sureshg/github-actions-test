@@ -1,7 +1,7 @@
 #!/usr/bin/env -S kotlin -Xplugin=/opt/homebrew/opt/kotlin/libexec/lib/kotlinx-serialization-compiler-plugin.jar
 
 // @file:Repository("https://maven.google.com")
-@file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+@file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 @file:DependsOn("org.slf4j:slf4j-simple:2.0.5")
 
